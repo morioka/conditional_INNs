@@ -5,10 +5,13 @@ import matplotlib.pyplot as plt
 import model
 import data
 
+DEVICE = torch.device('cuda:0' if torch.cuda.is_available() else 'cpu')
+
 cinn = model.MNIST_cINN(0)
-cinn.cuda()
 state_dict = {k:v for k,v in torch.load('output/mnist_cinn.pt').items() if 'tmp_var' not in k}
 cinn.load_state_dict(state_dict)
+
+cinn.to(DEVICE)
 
 cinn.eval()
 
@@ -22,7 +25,8 @@ def show_samples(label):
     z = 1.0 * torch.randn(N_samples, model.ndim_total).cuda()
 
     with torch.no_grad():
-        samples = cinn.reverse_sample(z, l).cpu().numpy()
+        samples, _ = cinn.reverse_sample(z, l)
+        samples = samples.cpu().numpy()
         samples = data.unnormalize(samples)
 
     full_image = np.zeros((28*10, 28*10))
@@ -47,6 +51,7 @@ def val_loss():
     print('Validation loss:')
     print(nll_val.item())
 
+_, _, data.val_x, data.val_l = data.setup(DEVICE)
 val_loss()
 
 for i in range(10):
