@@ -45,3 +45,11 @@ these are just the confirmed ones:
 +---------------------------+-------------------------------+
 | Pillow                    | 6.0.0                         |
 +---------------------------+-------------------------------+
+
+
+** IMPORTANT NOTE (by morioka) **
+
+``mnist_minimal_sample``and ``mnist_cINN`` may not work on the current FrEIA.
+They work on [Feb. 20, 2020 version](https://github.com/vislearn/FrEIA/tree/ec47c412ae3cd25277ee1019de8247ad4b4c5db2).
+
+FrEIA sometimes break its backward compatiblity without any notification via version number.

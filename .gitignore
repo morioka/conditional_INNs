@@ -1,3 +1,6 @@
 __pycache__/
-mnist_minimal_example/mnist_data/
-mnist_minimal_example/output/
+color_mnist_data/
+mnist_data/
+output/
+checkpoint/
+.vscode/settings.json
